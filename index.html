@@ -39,38 +39,32 @@
         </div>
       </div>
 
-   <div id="studio-screen" class="screen">
+<div id="studio-screen" class="screen">
   <div class="header">
     <button class="back-btn" onclick="showScreen('home-screen')">←</button>
     <div class="header-title">小剧场</div>
     <div class="header-right"></div>
   </div>
 
-  <div class="content">
-    <h2>小剧场</h2>
-    <p>输入一个场景或设定，我先帮你把它显示成一个简单结果。</p>
+  <div class="studio-chat-layout">
+    <div id="studio-messages" class="studio-messages">
+      <div class="studio-message ai">
+        <div class="bubble">
+          这里是小剧场。请输入一个场景，我会把它展开成对话。
+        </div>
+      </div>
+    </div>
 
-    <textarea id="studio-input" placeholder="例如：深夜便利店重逢，两个人表面平静，其实都还没放下。"></textarea>
-    <button class="main-btn" onclick="generateStudio()">开始生成</button>
-
-  <div id="studio-result" class="result-card" style="display: none;">
-  <h3>生成结果</h3>
-
-  <div class="result-section">
-    <div class="result-label">场景</div>
-    <div id="studio-scene-text" class="result-value"></div>
-  </div>
-
-  <div class="result-section">
-    <div class="result-label">剧情</div>
-    <div id="studio-story-text" class="result-value"></div>
-  </div>
-
-  <div class="result-section">
-    <div class="result-label">对话</div>
-    <div id="studio-dialogue-text" class="result-value"></div>
+    <div class="studio-input-area">
+      <textarea
+        id="studio-input"
+        placeholder="例如：深夜便利店重逢，两个人表面平静，其实都还没放下。"
+      ></textarea>
+      <button class="main-btn" onclick="generateStudio()">发送</button>
+    </div>
   </div>
 </div>
+
   </div>
 </div>
 
@@ -116,32 +110,43 @@
     }
   }
 
+  function appendStudioMessage(role, text) {
+    const messages = document.getElementById('studio-messages');
+    const message = document.createElement('div');
+    message.className = `studio-message ${role}`;
+    message.innerHTML = `<div class="bubble">${text}</div>`;
+    messages.appendChild(message);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
   function generateStudio() {
-    const input = document.getElementById('studio-input').value.trim();
-    const resultBox = document.getElementById('studio-result');
-    const sceneText = document.getElementById('studio-scene-text');
-    const storyText = document.getElementById('studio-story-text');
-    const dialogueText = document.getElementById('studio-dialogue-text');
+    const inputEl = document.getElementById('studio-input');
+    const input = inputEl.value.trim();
 
-    resultBox.style.display = 'block';
+    if (!input) return;
 
-    if (!input) {
-      sceneText.textContent = '请先输入一个场景或设定。';
-      storyText.textContent = '';
-      dialogueText.textContent = '';
-      return;
+    appendStudioMessage('user', input);
+
+    const replies = [
+      `【场景展开】夜色很安静，${input}。气氛克制，却又带着一点没说出口的情绪。`,
+      `A：好久不见。<br>B：……嗯，好久了。`,
+      `A：我还以为你不会再来这里。<br>B：我也以为你不会。`,
+      `空气短暂安静下来，像是谁都没有真正准备好面对这次重逢。`
+    ];
+
+    let index = 0;
+
+    function sendNextReply() {
+      if (index < replies.length) {
+        appendStudioMessage('ai', replies[index]);
+        index++;
+        setTimeout(sendNextReply, 700);
+      }
     }
 
-    sceneText.textContent = input;
-    storyText.textContent = '夜色安静，空气里带着一点没说出口的情绪。两个人重逢后都努力维持平静，但过去并没有真正翻篇。';
-    dialogueText.innerHTML = `
-      A：好久不见。<br>
-      B：……嗯，好久了。<br>
-      A：你看起来没怎么变。<br>
-      B：你也是。
-    `;
+    setTimeout(sendNextReply, 400);
+    inputEl.value = '';
   }
-</script>
 </script>
 </body>
 </html>
