@@ -110,14 +110,19 @@
     }
   }
 
-  function appendStudioMessage(role, text) {
-    const messages = document.getElementById('studio-messages');
-    const message = document.createElement('div');
-    message.className = `studio-message ${role}`;
-    message.innerHTML = `<div class="bubble">${text}</div>`;
-    messages.appendChild(message);
+function appendStudioMessage(role, text) {
+  const messages = document.getElementById('studio-messages');
+  const message = document.createElement('div');
+  message.className = `studio-message ${role}`;
+  message.innerHTML = `<div class="bubble">${text}</div>`;
+  messages.appendChild(message);
+
+  setTimeout(() => {
     messages.scrollTop = messages.scrollHeight;
-  }
+  }, 50);
+}
+
+</script>
 
   function generateStudio() {
     const inputEl = document.getElementById('studio-input');
