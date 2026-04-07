@@ -265,22 +265,18 @@ textarea {
   }
 
   #status-bar {
-    padding-top: calc(12px + env(safe-area-inset-top));
-  }
+  height: calc(48px + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) 18px 0;
+}
 
-  .screen {
-    height: calc(100vh - 44px);
-  }
+.header {
+  min-height: 56px;
+  padding: 0 14px;
+}
 
-  #studio-screen .header {
-    position: sticky;
-    top: 0;
-    z-index: 5;
-  }
-
-  .studio-messages {
-    padding-top: 12px;
-  }
+.screen {
+  height: calc(100vh - (48px + env(safe-area-inset-top)));
+}
 }
 
 /* 小剧场聊天页 */
