@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Phone App</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="page-bg">
+    <div id="phone-screen">
+
+      <div id="status-bar">
+        <span>9:41</span>
+        <span>📶  WiFi  🔋</span>
+      </div>
+
+      <div id="home-screen" class="screen active">
+        <div id="clock-container">
+          <div class="time">9:41</div>
+          <div class="date">Monday, April 7</div>
+        </div>
+
+        <div class="app-grid">
+          <div class="app-icon" onclick="showScreen('studio-screen')">
+            <div class="icon-bg">🎭</div>
+            <div class="label">小剧场</div>
+          </div>
+
+          <div class="app-icon" onclick="showScreen('date-screen')">
+            <div class="icon-bg">💕</div>
+            <div class="label">约会</div>
+          </div>
+
+          <div class="app-icon" onclick="showScreen('profile-screen')">
+            <div class="icon-bg">👤</div>
+            <div class="label">我的</div>
+          </div>
+        </div>
+      </div>
+
+   <div id="studio-screen" class="screen">
+  <div class="header">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <div class="header-title">小剧场</div>
+    <div class="header-right"></div>
+  </div>
+
+  <div class="content">
+    <h2>小剧场</h2>
+    <p>输入一个场景或设定，我先帮你把它显示成一个简单结果。</p>
+
+    <textarea id="studio-input" placeholder="例如：深夜便利店重逢，两个人表面平静，其实都还没放下。"></textarea>
+    <button class="main-btn" onclick="generateStudio()">开始生成</button>
+
+  <div id="studio-result" class="result-card" style="display: none;">
+  <h3>生成结果</h3>
+
+  <div class="result-section">
+    <div class="result-label">场景</div>
+    <div id="studio-scene-text" class="result-value"></div>
+  </div>
+
+  <div class="result-section">
+    <div class="result-label">剧情</div>
+    <div id="studio-story-text" class="result-value"></div>
+  </div>
+
+  <div class="result-section">
+    <div class="result-label">对话</div>
+    <div id="studio-dialogue-text" class="result-value"></div>
+  </div>
+</div>
+  </div>
+</div>
+
+      <div id="date-screen" class="screen">
+        <div class="header">
+          <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+          <div class="header-title">约会</div>
+          <div class="header-right"></div>
+        </div>
+
+        <div class="content">
+          <h2>约会</h2>
+          <p>这里以后可以做约会场景、AI 推荐、互动页面。</p>
+          <button class="main-btn">生成约会想法</button>
+        </div>
+      </div>
+
+      <div id="profile-screen" class="screen">
+        <div class="header">
+          <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+          <div class="header-title">我的</div>
+          <div class="header-right"></div>
+        </div>
+
+        <div class="content">
+          <h2>个人页</h2>
+          <p>这里以后可以放设置、头像、主题、资料。</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+  function showScreen(screenId) {
+    document.querySelectorAll('.screen').forEach(screen => {
+      screen.classList.remove('active');
+    });
+
+    const target = document.getElementById(screenId);
+    if (target) {
+      target.classList.add('active');
+    }
+  }
+
+  function generateStudio() {
+    const input = document.getElementById('studio-input').value.trim();
+    const resultBox = document.getElementById('studio-result');
+    const sceneText = document.getElementById('studio-scene-text');
+    const storyText = document.getElementById('studio-story-text');
+    const dialogueText = document.getElementById('studio-dialogue-text');
+
+    resultBox.style.display = 'block';
+
+    if (!input) {
+      sceneText.textContent = '请先输入一个场景或设定。';
+      storyText.textContent = '';
+      dialogueText.textContent = '';
+      return;
+    }
+
+    sceneText.textContent = input;
+    storyText.textContent = '夜色安静，空气里带着一点没说出口的情绪。两个人重逢后都努力维持平静，但过去并没有真正翻篇。';
+    dialogueText.innerHTML = `
+      A：好久不见。<br>
+      B：……嗯，好久了。<br>
+      A：你看起来没怎么变。<br>
+      B：你也是。
+    `;
+  }
+</script>
+</script>
+</body>
+</html>
+    

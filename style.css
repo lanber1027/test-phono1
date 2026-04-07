@@ -1,0 +1,258 @@
+* {
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background: #e9edf3;
+}
+
+body {
+  overflow: hidden;
+}
+
+/* 外层背景（桌面模式） */
+.page-bg {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background: #e9edf3;
+}
+
+/* 手机框 */
+#phone-screen {
+  width: 360px;
+  height: 740px;
+  background: linear-gradient(180deg, #dfe9f7 0%, #f7f9fc 100%);
+  border-radius: 36px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  position: relative;
+  border: 8px solid #111;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 状态栏 */
+#status-bar {
+  height: 44px;
+  padding: 12px 18px 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #111;
+  flex-shrink: 0;
+}
+
+/* 页面容器 */
+.screen {
+  display: none;
+  width: 100%;
+  height: calc(100% - 44px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.screen.active {
+  display: block;
+}
+
+#home-screen {
+  padding: 18px 20px 24px;
+}
+
+#clock-container {
+  text-align: center;
+  margin-top: 24px;
+  margin-bottom: 36px;
+}
+
+#clock-container .time {
+  font-size: 54px;
+  font-weight: 700;
+  color: #111;
+}
+
+#clock-container .date {
+  font-size: 16px;
+  color: #555;
+  margin-top: 8px;
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px 12px;
+}
+
+.app-icon {
+  text-align: center;
+  cursor: pointer;
+}
+
+.icon-bg {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 8px;
+  border-radius: 18px;
+  background: #ffffffcc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.label {
+  font-size: 14px;
+  color: #222;
+}
+
+.header {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  border-bottom: 1px solid #e5e7eb;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.back-btn {
+  border: none;
+  background: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.header-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.header-right {
+  width: 24px;
+}
+
+.content {
+  padding: 20px;
+}
+
+.content h2 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.content p {
+  color: #555;
+  line-height: 1.6;
+}
+
+textarea {
+  width: 100%;
+  min-height: 120px;
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  resize: vertical;
+  font-size: 14px;
+}
+
+.main-btn {
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: #111827;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+.result-card {
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.result-card h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+.result-card p {
+  margin: 0;
+  color: #333;
+  line-height: 1.7;
+}.result-section {
+  margin-top: 14px;
+}
+
+.result-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+.result-value {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #374151;
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.screen::-webkit-scrollbar {
+  width: 6px;
+}
+
+.screen::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 999px;
+}
+
+.screen::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 手机模式（自动切换） */
+@media (max-width: 768px) {
+  body {
+    background: #dfe9f7;
+  }
+
+  .page-bg {
+    min-height: 100vh;
+    padding: 0;
+    background: #dfe9f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #phone-screen {
+    width: min(100vw, 430px);
+    height: 100vh;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .screen {
+    height: calc(100vh - 44px);
+  }
+}
