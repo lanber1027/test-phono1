@@ -412,3 +412,49 @@ textarea {
   border-radius: 12px;
   font-size: 14px;
 }
+
+.row-inline {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.row-inline .form-input {
+  flex: 1;
+  margin: 0;
+}
+
+.sub-btn {
+  flex-shrink: 0;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 12px;
+  background: #334155;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+#home-screen {
+  background: #dfe9f7;
+  overflow-y: auto;
+}
+
+.home-content {
+  width: 100%;
+  padding: 28px 20px 24px;
+}
+
+.home-app-grid {
+  width: 100%;
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 24px 12px !important;
+}
+
+.home-app-grid .app-icon {
+  width: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
