@@ -1,8 +1,0 @@
-{
-  "name": "dreamtopia",
-  "short_name": "Dreamtopia Phone",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#dfe9f7",
-  "theme_color": "#111827"
-}
