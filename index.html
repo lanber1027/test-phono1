@@ -10,7 +10,7 @@
 
   <title>dreamtopia phone</title>
   <link rel="manifest" href="./manifest.json">
-  <link rel="stylesheet" href="./style.css?v=4" />
+  <link rel="stylesheet" href="./style.css?v=5" />
 </head>
 <body>
   <div class="page-bg">
@@ -21,20 +21,25 @@
         <span>📶  WiFi  🔋</span>
       </div>
 
-      <div class="app-grid">
-  <div class="app-icon" onclick="showScreen('chat-screen')">
-    <div class="icon-bg">💬</div>
-    <div class="label">聊天</div>
-  </div>
+      
+<div id="home-screen" class="screen active">
+  <div class="home-content">
+    <div class="home-app-grid">
+      <div class="app-icon" onclick="showScreen('chat-screen')">
+        <div class="icon-bg">💬</div>
+        <div class="label">聊天</div>
+      </div>
 
-  <div class="app-icon" onclick="showScreen('api-screen')">
-    <div class="icon-bg">⚙️</div>
-    <div class="label">API设置</div>
-  </div>
+      <div class="app-icon" onclick="showScreen('api-screen')">
+        <div class="icon-bg">⚙️</div>
+        <div class="label">API设置</div>
+      </div>
 
-  <div class="app-icon" onclick="showScreen('profile-screen')">
-    <div class="icon-bg">👤</div>
-    <div class="label">我的</div>
+      <div class="app-icon" onclick="showScreen('profile-screen')">
+        <div class="icon-bg">👤</div>
+        <div class="label">我的</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -72,14 +77,34 @@
   </div>
 
   <div class="content">
-    <label class="form-label">Proxy URL</label>
-    <input id="api-proxy" class="form-input" placeholder="例如：https://xxx.com/v1/chat/completions" />
+    <label class="form-label">Base URL</label>
+    <input
+      id="api-proxy"
+      class="form-input"
+      placeholder="例如：https://api.openai.com"
+    />
 
     <label class="form-label">API Key</label>
-    <input id="api-key" class="form-input" placeholder="输入 API Key" />
+    <input
+      id="api-key"
+      class="form-input"
+      placeholder="输入 API Key"
+    />
 
-    <label class="form-label">Model</label>
-    <input id="api-model" class="form-input" placeholder="例如：gpt-4o-mini / deepseek-chat" />
+    <label class="form-label">模型</label>
+    <div class="row-inline">
+      <select id="api-model-select" class="form-input">
+        <option value="">请先拉取模型</option>
+      </select>
+      <button type="button" class="sub-btn" id="fetch-models-btn">拉取</button>
+    </div>
+
+    <label class="form-label">手动模型名（备用）</label>
+    <input
+      id="api-model"
+      class="form-input"
+      placeholder="拉取不到时手填，例如：gpt-4o-mini"
+    />
 
     <button class="main-btn" id="save-api-btn">保存设置</button>
   </div>
