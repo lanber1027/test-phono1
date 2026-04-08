@@ -1,13 +1,13 @@
 async function callAI(userText) {
-  const proxy = localStorage.getItem('api_proxy') || '';
-  const apiKey = localStorage.getItem('api_key') || '';
-  const model = localStorage.getItem('api_model') || '';
+  const proxy = (localStorage.getItem('api_proxy') || '').trim().replace(/\/+$/, '');
+  const apiKey = (localStorage.getItem('api_key') || '').trim();
+  const model = (localStorage.getItem('api_model') || '').trim();
 
   if (!proxy || !apiKey || !model) {
-    throw new Error('请先去 API 设置页填写 proxy、api key 和 model');
+    throw new Error('请先去 API 设置页填写 Base URL、API Key，并选择模型');
   }
 
-  const response = await fetch(proxy, {
+  const response = await fetch(`${proxy}/v1/chat/completions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
