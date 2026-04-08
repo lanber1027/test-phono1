@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="My Phone">
+
+  <title>dreamtopia phone</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="stylesheet" href="./style.css?v=4" />
+</head>
+<body>
+  <div class="page-bg">
+    <div id="phone-screen">
+
+      <div id="status-bar">
+        <span>9:41</span>
+        <span>📶  WiFi  🔋</span>
+      </div>
+
+      <div class="app-grid">
+  <div class="app-icon" onclick="showScreen('chat-screen')">
+    <div class="icon-bg">💬</div>
+    <div class="label">聊天</div>
+  </div>
+
+  <div class="app-icon" onclick="showScreen('api-screen')">
+    <div class="icon-bg">⚙️</div>
+    <div class="label">API设置</div>
+  </div>
+
+  <div class="app-icon" onclick="showScreen('profile-screen')">
+    <div class="icon-bg">👤</div>
+    <div class="label">我的</div>
+  </div>
+</div>
+
+<div id="chat-screen" class="screen">
+  <div class="header">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <div class="header-title">AI 聊天</div>
+    <div class="header-right"></div>
+  </div>
+
+  <div class="chat-layout">
+    <div id="chat-messages" class="chat-messages">
+      <div class="chat-message ai">
+        <div class="bubble">
+          你好，输入内容后我会通过 API 真正回复你。
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <textarea
+        id="chat-input"
+        placeholder="输入你想说的话..."
+      ></textarea>
+      <button class="main-btn" id="send-btn">发送</button>
+    </div>
+  </div>
+</div>
+
+<div id="api-screen" class="screen">
+  <div class="header">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <div class="header-title">API 设置</div>
+    <div class="header-right"></div>
+  </div>
+
+  <div class="content">
+    <label class="form-label">Proxy URL</label>
+    <input id="api-proxy" class="form-input" placeholder="例如：https://xxx.com/v1/chat/completions" />
+
+    <label class="form-label">API Key</label>
+    <input id="api-key" class="form-input" placeholder="输入 API Key" />
+
+    <label class="form-label">Model</label>
+    <input id="api-model" class="form-input" placeholder="例如：gpt-4o-mini / deepseek-chat" />
+
+    <button class="main-btn" id="save-api-btn">保存设置</button>
+  </div>
+</div>
+
+      <div id="profile-screen" class="screen">
+        <div class="header">
+          <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+          <div class="header-title">我的</div>
+          <div class="header-right"></div>
+        </div>
+
+        <div class="content">
+          <h2>个人页</h2>
+          <p>这里以后可以放设置、头像、主题、资料。</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<script src="./app.js"></script>
+<script src="./api.js"></script>
+<script src="./chat.js"></script>
+
+</body>
+</html>
+    
