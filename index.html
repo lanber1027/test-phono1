@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Dreamtopia Phone" />
+  <title>dreamtopia phone</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./style.css?v=12" />
+</head>
+<body>
+  <div class="page-bg">
+    <div id="phone-screen">
+      <section id="home-screen" class="screen active">
+        <div class="home-shell">
+          <div class="home-hero">
+            <p class="home-kicker">Dreamtopia Phone</p>
+            <div id="home-time" class="home-time">09:41</div>
+            <div id="home-date" class="home-date">星期四 4月9日</div>
+            <p id="home-summary" class="home-summary">今天适合聊天、记录，也适合悄悄看一眼 Whisper。</p>
+          </div>
+
+          <div class="widget-row">
+            <button type="button" class="home-widget glass-card" data-screen="messages-screen" data-messages-tab-target="moments">
+              <span class="widget-label">朋友圈</span>
+              <strong id="home-moment-preview" class="widget-title">朋友们刚更新了想法。</strong>
+              <span class="widget-meta">点开可以发动态、看朋友圈子。</span>
+            </button>
+
+            <button type="button" class="home-widget glass-card" data-screen="whisper-screen">
+              <span class="widget-label">Whisper</span>
+              <strong id="home-whisper-preview" class="widget-title">你们的共享手机仍在同步中。</strong>
+              <span class="widget-meta">可以直接查看对方的模拟手机。</span>
+            </button>
+          </div>
+
+          <div id="home-app-pages-shell" class="home-app-pages-shell">
+            <div id="home-app-pages-track" class="home-app-pages-track"></div>
+          </div>
+          <div id="home-page-dots" class="home-page-dots"></div>
+
+          <div class="home-dock glass-card">
+            <button type="button" class="dock-app app-note" data-screen="notes-screen">
+              <span class="home-app-icon" data-app-icon-key="notes">N</span>
+              <span class="dock-label">Notes</span>
+            </button>
+            <button type="button" class="dock-app app-pink" data-screen="whisper-screen">
+              <span class="home-app-icon" data-app-icon-key="whisper">H</span>
+              <span class="dock-label">Whisper</span>
+            </button>
+            <button type="button" class="dock-app app-dark" data-screen="api-screen">
+              <span class="home-app-icon" data-app-icon-key="api">AI</span>
+              <span class="dock-label">AI</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="messages-screen" class="screen app-screen messages-shell">
+        <div class="app-header messages-header">
+          <button type="button" class="back-btn flat-header-btn" data-back-screen="home-screen">&#8249;</button>
+          <div class="messages-header-main">
+            <div class="messages-app-chip">聊聊</div>
+            <button type="button" class="text-action-btn header-group-btn" id="open-group-modal-btn">群聊</button>
+          </div>
+        </div>
+
+        <div class="messages-body">
+          <div class="screen-scroll messages-scroll">
+            <div id="messages-tab-chats" class="messages-tab active">
+              <div class="panel-toolbar">
+                <input id="chat-search" class="form-input search-input" placeholder="搜索对话、朋友、群聊" />
+              </div>
+              <div class="chat-toolbar-row">
+                <button type="button" class="text-action-btn" id="new-direct-chat-btn">新聊天</button>
+              </div>
+
+              <div id="conversation-list" class="stack-list conversation-list"></div>
+            </div>
+
+            <div id="messages-tab-contacts" class="messages-tab">
+              <div class="panel-toolbar">
+                <input id="contact-search" class="form-input search-input" placeholder="搜索或寻找新的联系人" />
+                <button type="button" class="sub-btn compact-btn" id="add-contact-btn">新联系人</button>
+              </div>
+
+              <div id="contacts-list" class="stack-list"></div>
+            </div>
+
+            <div id="messages-tab-moments" class="messages-tab">
+              <div class="compose-card glass-card">
+                <label class="form-label" for="moment-input">发布朋友圈</label>
+                <textarea id="moment-input" class="form-input compose-textarea" placeholder="写一句想法，像朋友圈 / Instagram / Facebook 一样分享给朋友。"></textarea>
+                <div class="compose-actions">
+                  <span class="compose-hint">支持短想法、近况、碎碎念。</span>
+                  <button type="button" class="main-btn" id="publish-moment-btn">发布</button>
+                </div>
+              </div>
+
+              <div id="moments-list" class="stack-list moments-list"></div>
+            </div>
+          </div>
+
+          <div class="messages-bottom-nav">
+            <div class="segment-row segment-row-bottom">
+              <button type="button" class="segment-btn active" data-messages-tab="chats">聊天</button>
+              <button type="button" class="segment-btn" data-messages-tab="contacts">联系人</button>
+              <button type="button" class="segment-btn" data-messages-tab="moments">朋友圈</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="chat-screen" class="screen app-screen">
+        <div class="app-header chat-header">
+          <button type="button" class="back-btn flat-header-btn chat-header-back-btn" data-back-screen="messages-screen" aria-label="返回">&#8249;</button>
+          <h1 class="header-title chat-header-title">AI 聊天</h1>
+          <button class="chat-header-icon-btn" id="chat-settings-btn" type="button" aria-label="聊天设定">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M30 27.75C30 29.4833 29.3917 30.9583 28.175 32.175C26.9583 33.3917 25.4833 34 23.75 34C22.0167 34 20.5417 33.3917 19.325 32.175C18.1083 30.9583 17.5 29.4833 17.5 27.75V18.5C17.5 17.25 17.9375 16.1875 18.8125 15.3125C19.6875 14.4375 20.75 14 22 14C23.25 14 24.3125 14.4375 25.1875 15.3125C26.0625 16.1875 26.5 17.25 26.5 18.5V27.25C26.5 28.0167 26.2333 28.6667 25.7 29.2C25.1667 29.7333 24.5167 30 23.75 30C22.9833 30 22.3333 29.7333 21.8 29.2C21.2667 28.6667 21 28.0167 21 27.25V18H23V27.25C23 27.4667 23.0708 27.6458 23.2125 27.7875C23.3542 27.9292 23.5333 28 23.75 28C23.9667 28 24.1458 27.9292 24.2875 27.7875C24.4292 27.6458 24.5 27.4667 24.5 27.25V18.5C24.4833 17.8 24.2375 17.2083 23.7625 16.725C23.2875 16.2417 22.7 16 22 16C21.3 16 20.7083 16.2417 20.225 16.725C19.7417 17.2083 19.5 17.8 19.5 18.5V27.75C19.4833 28.9333 19.8917 29.9375 20.725 30.7625C21.5583 31.5875 22.5667 32 23.75 32C24.9167 32 25.9083 31.5875 26.725 30.7625C27.5417 29.9375 27.9667 28.9333 28 27.75V18H30V27.75Z" fill="rgba(251, 254, 255, 0.8)"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="chat-layout">
+          <div id="chat-messages" class="chat-messages"></div>
+
+          <div class="chat-input-area">
+            <div id="chat-mini-menu" class="chat-mini-menu" aria-hidden="true">
+              <button class="chat-mini-menu-btn" id="stop-btn" type="button">停止</button>
+            </div>
+            <div id="chat-attachment-preview" class="chat-attachment-preview hidden"></div>
+            <div class="chat-composer-row">
+              <button class="chat-composer-icon-btn" id="chat-add-image-btn" type="button" aria-label="选择图片">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M11 17H13V13H17V11H13V7H11V11H7V13H11V17ZM12 22C10.6167 22 9.31667 21.7417 8.1 21.225C6.88333 20.6917 5.825 19.975 4.925 19.075C4.025 18.175 3.30833 17.1167 2.775 15.9C2.25833 14.6833 2 13.3833 2 12C2 10.6167 2.25833 9.31667 2.775 8.1C3.30833 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.31667 8.1 2.8C9.31667 2.26667 10.6167 2 12 2C13.3833 2 14.6833 2.26667 15.9 2.8C17.1167 3.31667 18.175 4.025 19.075 4.925C19.975 5.825 20.6833 6.88333 21.2 8.1C21.7333 9.31667 22 10.6167 22 12C22 13.3833 21.7333 14.6833 21.2 15.9C20.6833 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6917 15.9 21.225C14.6833 21.7417 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z" fill="#3B393F"/>
+                </svg>
+              </button>
+              <button class="chat-composer-icon-btn" id="chat-mood-btn" type="button" aria-label="插入表情">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M15.5 11C15.9167 11 16.2708 10.8542 16.5625 10.5625C16.8542 10.2708 17 9.91667 17 9.5C17 9.08333 16.8542 8.72917 16.5625 8.4375C16.2708 8.14583 15.9167 8 15.5 8C15.0833 8 14.7292 8.14583 14.4375 8.4375C14.1458 8.72917 14 9.08333 14 9.5C14 9.91667 14.1458 10.2708 14.4375 10.5625C14.7292 10.8542 15.0833 11 15.5 11ZM8.5 11C8.91667 11 9.27083 10.8542 9.5625 10.5625C9.85417 10.2708 10 9.91667 10 9.5C10 9.08333 9.85417 8.72917 9.5625 8.4375C9.27083 8.14583 8.91667 8 8.5 8C8.08333 8 7.72917 8.14583 7.4375 8.4375C7.14583 8.72917 7 9.08333 7 9.5C7 9.91667 7.14583 10.2708 7.4375 10.5625C7.72917 10.8542 8.08333 11 8.5 11ZM12 17.5C13.1333 17.5 14.1625 17.1792 15.0875 16.5375C16.0125 15.8958 16.6833 15.05 17.1 14H6.9C7.31667 15.05 7.9875 15.8958 8.9125 16.5375C9.8375 17.1792 10.8667 17.5 12 17.5ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z" fill="#3B393F"/>
+                </svg>
+              </button>
+              <div class="composer-input-shell">
+                <button class="chat-menu-btn" id="chat-menu-btn" type="button" aria-label="打开菜单">
+                  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="4" y="4" width="40" height="40" rx="20" fill="white"/>
+                    <path d="M15 30V28H33V30H15ZM15 25V23H33V25H15ZM15 20V18H33V20H15Z" fill="#4F4B54"/>
+                  </svg>
+                </button>
+                <textarea id="chat-input" class="composer-input" rows="1" placeholder="输入你想说的话，按 Enter 发送..."></textarea>
+              </div>
+            </div>
+            <input id="chat-image-input" type="file" accept="image/*" hidden />
+          </div>
+        </div>
+      </section>
+
+      <section id="chat-settings-screen" class="screen app-screen">
+        <div class="app-header">
+          <button type="button" class="back-btn" data-back-screen="chat-screen">&#8249;</button>
+          <div>
+            <p class="header-eyebrow">Conversation</p>
+            <h1 class="header-title">聊天设定</h1>
+          </div>
+          <button class="main-btn compact-main-btn" id="save-chat-settings-btn" type="button">保存</button>
+        </div>
+
+        <div class="screen-scroll settings-scroll">
+          <div class="settings-card">
+            <label class="form-label">备注</label>
+            <input id="chat-title-input" class="form-input" placeholder="仅用于显示，不发送给 AI" />
+            <p class="input-hint">备注只用于聊天列表和顶部显示，不作为 AI 设定。</p>
+
+            <label class="form-label">名称</label>
+            <input id="chat-name-input" class="form-input" placeholder="AI 角色的真实姓名" />
+
+            <label class="form-label">角色头像</label>
+            <div class="chat-avatar-setting-row">
+              <div id="chat-avatar-preview" class="chat-avatar-square" aria-hidden="true">AI</div>
+              <div class="chat-avatar-setting-copy">
+                <p class="chat-avatar-setting-title">这个头像会应用到聊天列表和聊天详情页中 AI 角色出现的位置。</p>
+                <div class="chat-avatar-setting-actions">
+                  <label class="sub-btn compact-btn chat-avatar-upload-label">
+                    上传头像
+                    <input id="chat-avatar-file-input" type="file" accept="image/*" hidden />
+                  </label>
+                  <button type="button" class="sub-btn compact-btn" id="chat-avatar-clear-btn">清除</button>
+                </div>
+              </div>
+              <input id="chat-avatar-image-input" type="hidden" />
+            </div>
+
+            <label class="form-label">角色人设</label>
+            <textarea id="chat-persona-input" class="form-input" placeholder="长期身份、性格、行为逻辑。"></textarea>
+
+            <label class="form-label">风格</label>
+            <textarea id="chat-style-input" class="form-input" placeholder="说话风格、语气、表达习惯。"></textarea>
+
+            <label class="form-label">关系状态（该对话专属）</label>
+            <textarea id="chat-relationship-input" class="form-input" placeholder="例如：暧昧、熟悉朋友、长期搭档、群聊成员关系。"></textarea>
+
+            <div id="group-memory-settings" class="group-memory-settings hidden">
+              <label class="form-label">共享记忆条数</label>
+              <input id="chat-shared-memory-limit-input" class="form-input" type="number" min="0" max="30" step="1" placeholder="默认 12" />
+              <p class="input-hint">群聊会从你和群成员的私聊里挂载最近的记忆片段。默认 12 条，兼顾 token 和流畅度。</p>
+            </div>
+
+            <p class="input-hint chat-settings-record-hint">双击任意消息可以编辑或者删除。删除后的内容不会再参与后续上下文。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="notes-screen" class="screen app-screen">
+        <div class="app-header">
+          <button type="button" class="back-btn" data-back-screen="home-screen">&#8249;</button>
+          <div>
+            <p class="header-eyebrow">Notes</p>
+            <h1 class="header-title">备忘录</h1>
+          </div>
+          <button type="button" class="sub-btn compact-btn" id="new-note-btn">新建</button>
+        </div>
+
+        <div class="screen-scroll notes-scroll">
+          <div id="notes-list" class="notes-list"></div>
+          <div class="note-editor glass-card">
+            <div class="note-editor-head">
+              <strong>当前笔记</strong>
+              <span id="note-updated-label" class="note-updated-label">刚刚更新</span>
+            </div>
+            <input id="note-title-input" class="form-input" placeholder="笔记标题" />
+            <textarea id="note-body-input" class="form-input note-body-input" placeholder="写下想法、待办、灵感、剧情设定..."></textarea>
+            <button type="button" class="main-btn" id="save-note-btn">保存笔记</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="maps-screen" class="screen app-screen">
+        <div class="app-header">
+          <button type="button" class="back-btn" data-back-screen="home-screen">&#8249;</button>
+          <div>
+            <p class="header-eyebrow">Map</p>
+            <h1 class="header-title">地图</h1>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+
+        <div class="screen-scroll">
+          <div class="map-stage glass-card">
+            <div class="map-grid"></div>
+            <div class="map-route-pill route-start">Home</div>
+            <div class="map-route-pill route-middle">Cafe</div>
+            <div class="map-route-pill route-end">Whisper</div>
+          </div>
+
+          <div class="section-head">
+            <strong>附近路线</strong>
+            <span>给模拟手机一个真实生活感</span>
+          </div>
+          <div id="map-route-list" class="stack-list"></div>
+        </div>
+      </section>
+
+      <section id="redbook-screen" class="screen app-screen">
+        <div class="app-header">
+          <button type="button" class="back-btn" data-back-screen="home-screen">&#8249;</button>
+          <div>
+            <p class="header-eyebrow">Lifestyle</p>
+            <h1 class="header-title">小红书</h1>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+
+        <div class="screen-scroll">
+          <div class="section-head">
+            <strong>今日推荐</strong>
+            <span>偏灵感、审美、生活方式</span>
+          </div>
+          <div id="redbook-feed" class="feed-list"></div>
+        </div>
+      </section>
+
+      <section id="weibo-screen" class="screen app-screen">
+        <div class="app-header">
+          <button type="button" class="back-btn" data-back-screen="home-screen">&#8249;</button>
+          <div>
+            <p class="header-eyebrow">Social</p>
+            <h1 class="header-title">微博</h1>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+
+        <div class="screen-scroll">
+          <div class="section-head">
+            <strong>热议片段</strong>
+            <span>更偏短内容、热搜感和吐槽感</span>
+          </div>
+          <div id="weibo-feed" class="feed-list"></div>
+        </div>
+      </section>
+
+      <section id="forum-screen" class="screen app-screen">
+        <div class="app-header">
+          <button type="button" class="back-btn" data-back-screen="home-screen">&#8249;</button>
+          <div>
+            <p class="header-eyebrow">Community</p>
+            <h1 class="header-title">论坛</h1>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+
+        <div class="screen-scroll">
+          <div class="section-head">
+            <strong>讨论区</strong>
+            <span>更像帖子、回复楼层和主题串</span>
+          </div>
+          <div id="forum-feed" class="feed-list"></div>
+        </div>
+      </section>
+
+      <section id="whisper-screen" class="screen app-screen">
+        <div class="app-header">
+          <button type="button" class="back-btn" data-back-screen="home-screen">&#8249;</button>
+          <div>
+            <p class="header-eyebrow">Whisper</p>
+            <h1 class="header-title">共享手机</h1>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+
+        <div class="screen-scroll">
+          <div class="whisper-hero glass-card">
+            <div class="whisper-copy">
+              <span class="widget-label">Linked With</span>
+              <strong>Nova 的模拟手机</strong>
+              <p>像情侣 / 好友软件一样，你可以查看对方手机的主页、聊天片段和共享笔记。</p>
+            </div>
+            <div class="whisper-status">
+              <span class="status-dot"></span>
+              <span>在线同步中</span>
+            </div>
+          </div>
+
+          <div class="segment-row whisper-segment">
+            <button type="button" class="segment-btn active" data-whisper-view="home">主页</button>
+            <button type="button" class="segment-btn" data-whisper-view="chats">聊天</button>
+            <button type="button" class="segment-btn" data-whisper-view="notes">共享备忘</button>
+          </div>
+
+          <div id="whisper-phone-preview" class="whisper-preview"></div>
+          <div id="whisper-sync-list" class="stack-list"></div>
+        </div>
+      </section>
+
+      <section id="api-screen" class="screen app-screen">
+        <div class="app-header">
+          <button type="button" class="back-btn" data-back-screen="home-screen">&#8249;</button>
+          <div>
+            <p class="header-eyebrow">AI Setup</p>
+            <h1 class="header-title">API 设置</h1>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+
+        <div class="screen-scroll settings-scroll">
+          <div class="settings-card">
+            <label class="form-label">Base URL</label>
+            <input id="api-proxy" class="form-input" placeholder="例如：https://api.openai.com" />
+            <label class="form-label">API Key</label>
+            <input id="api-key" class="form-input" placeholder="输入 API Key" />
+            <label class="form-label">模型</label>
+            <div class="row-inline">
+              <select id="api-model-select" class="form-input">
+                <option value="">请先拉取模型</option>
+              </select>
+              <button type="button" class="sub-btn" id="fetch-models-btn">拉取</button>
+            </div>
+            <label class="form-label">手动模型名（备用）</label>
+            <input id="api-model" class="form-input" placeholder="例如：gpt-4o-mini" />
+            <label class="form-label">温度 Temperature：<span id="temp-value">0.7</span></label>
+            <input id="api-temperature" class="form-range" type="range" min="0" max="1" step="0.1" value="0.7" />
+            <label class="form-label">Presence：<span id="presence-value">0</span></label>
+            <input id="api-presence" class="form-range" type="range" min="-1" max="1" step="0.1" value="0" />
+            <label class="form-label">Frequency：<span id="frequency-value">0</span></label>
+            <input id="api-frequency" class="form-range" type="range" min="-1" max="1" step="0.1" value="0" />
+            <label class="form-label">AI 记忆处理模式</label>
+            <select id="memory-mode" class="form-input">
+              <option value="raw">原文记忆</option>
+              <option value="auto" selected>AI 自动总结语气 / 结构</option>
+            </select>
+            <button class="main-btn" id="save-api-btn" type="button">保存设置</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="rules-screen" class="screen app-screen">
+        <div class="app-header">
+          <button type="button" class="back-btn" data-back-screen="home-screen">&#8249;</button>
+          <div>
+            <p class="header-eyebrow">World Book</p>
+            <h1 class="header-title">世界书</h1>
+          </div>
+          <button class="main-btn compact-main-btn" id="open-world-rule-modal-btn" type="button">+</button>
+        </div>
+
+        <div class="screen-scroll settings-scroll">
+          <div class="section-head worldbook-head">
+            <strong>核心世界规则</strong>
+            <span>同步给所有角色的规则会写入全局世界规则。</span>
+          </div>
+          <div id="world-rule-list" class="stack-list"></div>
+        </div>
+      </section>
+
+      <section id="settings-screen" class="screen app-screen">
+        <div class="app-header">
+          <button type="button" class="back-btn" data-back-screen="home-screen">&#8249;</button>
+          <div>
+            <p class="header-eyebrow">Appearance</p>
+            <h1 class="header-title">外观</h1>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+
+        <div class="screen-scroll settings-scroll">
+          <div class="settings-card">
+            <strong>主屏幕壁纸</strong>
+            <p class="settings-copy">你可以给主屏幕换壁纸。支持直接粘贴图片 URL，也支持上传本地图片，保存后会立刻应用，而且会自动按手机屏幕比例裁切显示。</p>
+            <div id="appearance-wallpaper-preview" class="appearance-wallpaper-preview"></div>
+            <label class="form-label" for="home-wallpaper-url-input">壁纸 URL</label>
+            <input id="home-wallpaper-url-input" class="form-input" placeholder="粘贴壁纸图片链接，或直接上传本地图片" />
+            <div class="app-icon-actions">
+              <label class="sub-btn compact-btn app-icon-file-label">
+                上传壁纸
+                <input id="home-wallpaper-file-input" type="file" accept="image/*" />
+              </label>
+              <button type="button" class="main-btn compact-main-btn" id="save-home-wallpaper-btn">保存壁纸</button>
+              <button type="button" class="sub-btn compact-btn" id="clear-home-wallpaper-btn">恢复默认</button>
+            </div>
+          </div>
+
+          <div id="app-icon-settings-list" class="app-icon-settings-list"></div>
+        </div>
+      </section>
+
+      <div id="world-rule-modal" class="world-rule-modal" aria-hidden="true">
+        <div class="world-rule-backdrop" data-close-world-rule-modal></div>
+        <div class="world-rule-dialog glass-card" role="dialog" aria-modal="true" aria-labelledby="world-rule-dialog-title">
+          <div class="world-rule-dialog-head">
+            <div>
+              <p class="header-eyebrow">World Book</p>
+              <h2 id="world-rule-dialog-title" class="world-rule-dialog-title">新增核心规则</h2>
+            </div>
+            <button type="button" class="back-btn world-rule-close-btn" id="close-world-rule-modal-btn">&times;</button>
+          </div>
+
+          <label class="form-label" for="world-rule-input">核心规则</label>
+          <textarea id="world-rule-input" class="form-input world-rule-input" placeholder="填写不能违背的世界设定、硬规则、绝对事实。"></textarea>
+
+          <button type="button" class="world-rule-sync-btn active" id="world-rule-sync-toggle" data-sync-all="true">
+            是否同步给所有角色：是
+          </button>
+
+          <div class="world-rule-actions">
+            <button type="button" class="sub-btn compact-btn" id="cancel-world-rule-btn">取消</button>
+            <button type="button" class="main-btn compact-main-btn" id="save-world-rule-btn">保存</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="group-modal" class="group-modal" aria-hidden="true">
+        <div class="group-modal-backdrop" data-close-group-modal></div>
+        <div class="group-modal-sheet glass-card" role="dialog" aria-modal="true" aria-labelledby="group-modal-title">
+          <div class="group-modal-head">
+            <div>
+              <p class="header-eyebrow">Group Chat</p>
+              <h2 id="group-modal-title" class="group-modal-title">新建群聊</h2>
+            </div>
+            <button type="button" class="back-btn world-rule-close-btn" id="close-group-modal-btn">&times;</button>
+          </div>
+
+          <label class="form-label" for="group-name-input">群名称</label>
+          <input id="group-name-input" class="form-input" placeholder="输入群聊名称" />
+
+          <label class="form-label" for="group-memory-limit-input">共享记忆条数</label>
+          <input id="group-memory-limit-input" class="form-input" type="number" min="0" max="30" step="1" value="12" />
+          <p class="input-hint">默认 12 条。会从你和群成员的私聊里提取最近的记忆片段挂载到群聊。</p>
+
+          <label class="form-label">群成员</label>
+          <div id="group-member-picker" class="group-member-picker"></div>
+
+          <div class="world-rule-actions">
+            <button type="button" class="sub-btn compact-btn" id="cancel-group-modal-btn">取消</button>
+            <button type="button" class="main-btn compact-main-btn" id="save-group-btn">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+  <script src="./api.js"></script>
+  <script src="./chat.js"></script>
+</body>
+</html>
